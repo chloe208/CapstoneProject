@@ -1,0 +1,80 @@
+{# THIS IS WHERE THE HEADER FOOTER IS #}
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{# THIS IS FOR THE HEAD TITLE #}
+{% block head_title %}
+    WELCOME TO
+{% endblock %}
+
+{# FOR BOOTSTRAP BUT IS NOW WORKING #}
+{% comment %}
+{%block jquery %}{% endblock %} 
+{% endcomment %}
+
+{# THIS IS THE CONTENT OF THE WEB PAGE #}
+{# DIANA'S CODE #}
+
+
+{% block jumbotron %}
+
+<style>
+        .margin{
+        padding:30px;
+        }
+</style>
+<table class='table'>
+        <thead>
+        <th></th>
+        <th>Product</th>
+        </thead>
+        <tbody>
+        {% for product in colors %}
+                {% if forloop.counter0|divisibleby:3 %}
+                <tr>
+                {% elif forloop.first %}
+                <tr>
+                {% endif %}
+                <td style="width: 160px; height: 190px;">
+                {% if product.productimage_set.all %}
+                {% for item in product.productimage_set.all%}
+                {% if item.featured %}
+                <div class='background_img_thumb' style="background-image: url('{{ MEDIA_URL }}{{ item.image.url }}');"></div> 
+                {% endif %}
+                {% endfor%}
+                {% else %}
+                <div class='background_img_thumb'></div> 
+                {% endif %}
+                </td>
+                <td>
+                <a href='{{ product.get_absolute_url }}'>
+                {{product.name}}</a>
+                </td>
+        {% empty %}
+                <!-- <h5>NO EXACT MATCH BUT HERE ARE THE CLOSEST ONE</h5> -->
+                {% for product in empty %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                        <tr>
+                        {% elif forloop.first %}
+                        <tr>
+                        {% endif %}
+                        <td style="width: 160px; height: 190px;">
+                        {% if product.productimage_set.all %}
+                        {% for item in product.productimage_set.all%}
+                        {% if item.featured %}
+                        <div class='background_img_thumb' style="background-image: url('{{ MEDIA_URL }}{{ item.image.url }}');"></div> 
+                        {% endif %}
+                        {% endfor%}
+                        {% else %}
+                        <div class='background_img_thumb'></div> 
+                        {% endif %}
+                        </td>
+                        <td>
+                        <a href='{{ product.get_absolute_url }}'>
+                        {{product.name}}</a>
+                        </td>
+                {% endfor %}
+        {% endfor %}
+        </tbody>
+</table>
+{% endblock %}

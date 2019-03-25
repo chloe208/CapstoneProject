@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block content %}
+<style>
+        .margin{
+        padding:30px;
+        }
+        </style>
+<h1 class='margin'>Searched for </h1>
+
+{{products}}
+
+<table class='table'>
+<thead>
+<th></th>
+<th>Product</th>
+</thead>
+
+<tbody>
+{% for product in products %}
+<tr>
+<td style="width: 160px; height: 190px;">
+{% if product.productimage_set.all %}
+
+{% for item in product.productimage_set.all%}
+
+        {% if item.featured %}
+       
+<div class='background_img_thumb' style="background-image: url('{{ MEDIA_URL }}{{ item.image.url }}');"></div>        
+        {% endif %}
+{% endfor%}
+{% else %}
+<div class='background_img_thumb'></div>   
+{% endif %}
+</td>
+<td>
+<a href='{{ product.get_absolute_url }}'>
+{{product}}</a>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

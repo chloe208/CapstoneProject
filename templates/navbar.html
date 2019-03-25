@@ -1,0 +1,170 @@
+<style>
+nav{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px; /* Margin bottom by footer height */
+}
+.footer {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px; /* Set the fixed height of the footer here */
+  line-height: 40px; /* Vertically center the text there */
+  {#background-color: #ECCBD9;#}
+  text-align: center;
+}
+.footer-bg {
+  background-color: #ECCBD9;
+}
+</style>
+
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #e1a6a6;">
+  <a class="navbar-brand" href="/">Color Me This</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/upload">Find My Shade</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'products' %}">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Brands</a>
+      </li>
+   
+      <li class="nav-item">
+        <a class="nav-link" href="#">Track Order</a>
+      </li>
+    </ul>
+    <form class="form-inline mt-2 mt-md-0" role="search" action="/s/">
+      <div class="form-group">
+      <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" style='color:#cccccc;'>
+    </div><button class="btn  my-2 my-sm-0" type="submit" style='background-color: #a15f5f; color: #D6C3C9;'>Search</button>
+    </form>
+    <ul class="navbar-nav mr-auto">  
+    <!-- if statement to check if user is logged in -->
+      <li class="nav-item">
+          <a class="nav-link" href="{% url 'cart' %}">Cart
+          {% if not request.session.items_total %}  <span class='badge badge-secondary'>0</span>{% else %}
+          <span class='badge badge-secondary'> {{request.session.items_total}}</span> {% endif %}</a></li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="/favorite">Favorites</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="/profile">My Account</a>
+      </li>
+           <li class="nav-item">
+          <a class="nav-link" href="/logout">Sign Out</a>
+      </li>
+         
+          {% else %}
+            <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+          {% endif %}
+  </div>
+  </ul>
+</nav>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-bg container text-center text-md-left">
+
+        <div class="col-md-6 mb-4">
+          <div class="row">
+              <div class="col-md-10 mx-auto">
+                  <h5 class="font-weight-bold text-uppercase mt-3 mb-4">SUBSCRIBE TO OUR NEWSLETTER</h5>
+                  
+                  <form class="input-group">
+              <input type="text" class="form-control form-control-sm" placeholder="Your email" aria-label="Your email" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-sm btn-outline-white my-0" type="button">Sign up</button>
+              </div>
+            </form>
+                  
+  
+          </div>
+       
+      <!-- <div class="row">
+        <div class="col-md-4 mx-auto">
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Footer Content</h5>
+          <p>Color Me This is an e-commerce web application that helps customers in the cosmetic community to ease their process of choosing
+              the right shades and eliminating as much confusions in picking the right product for the customers.</p>
+        </div> -->
+        <!-- <hr class="clearfix w-100 d-md-none">
+        <div class="col-md-2 mx-auto">
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!">Link 1</a>
+            </li>
+            <li>
+              <a href="#!">Link 2</a>
+            </li>
+            <li>
+              <a href="#!">Link 3</a>
+            </li>
+            <li>
+              <a href="#!">Link 4</a>
+            </li>
+          </ul>
+        </div> -->
+        <hr class="clearfix w-100 d-md-none">
+        <div class="col-md-2 mx-auto">
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!">Link 1</a>
+            </li>
+            <li>
+              <a href="#!">Link 2</a>
+            </li>
+            <li>
+              <a href="#!">Link 3</a>
+            </li>
+            <li>
+              <a href="#!">Link 4</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- <hr class="clearfix w-100 d-md-none"> -->
+        <!-- <div class = "row"> -->
+        <div class="col-md-2 mx-auto">
+          <a class="font-weight-bold text-uppercase mt-3 mb-4" href="/aboutus"><h5>About Us</h5></a>
+          <p>
+          </p>
+        </div>
+      </div>
+      <hr>
+      <ul class="list-unstyled list-inline text-center py-2">
+          <li class="list-inline-item">
+              <span class="text-muted">Color Me This 2019 &#9400;All rights reserved </span>
+              </li>
+        </ul>
+    </div>
+
+</footer>
+{##}
+{#<footer class="footer">#}
+{#		<div class="container">#}
+{#			<span class="text-muted">Color Me This 2019 &#9400;</span>#}
+{#		</div>#}
+{#	</footer>#}

@@ -1,0 +1,42 @@
+{# THIS IS WHERE THE HEADER FOOTER IS #}
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{# THIS IS FOR THE HEAD TITLE #}
+{% block head_title %}
+    WELCOME TO
+{% endblock %}
+
+{# FOR BOOTSTRAP BUT IS NOW WORKING #}
+{% comment %}
+{%block jquery %}{% endblock %} 
+{% endcomment %}
+
+{# THIS IS THE CONTENT OF THE WEB PAGE #}
+{# DIANA'S CODE #}
+
+
+{% block jumbotron %}
+
+<table>
+    <tr>
+    {% for color in shade %}
+        <style>
+            #shade{
+                padding: 40px 10px 5px 5px;
+                margin: 50px 5px 0 50px;
+            }
+        </style>
+        <td>
+            <h2 id="shade" style="color:transparent; background-color:rgb{{color}};"> 
+                shade
+            </h2>
+            <label id="shade" style="margin-top:0px;">{{color}}</label>
+        </td>
+    {%endfor%}
+    </tr>
+    <tr>
+            <p><a href="{% url 'color_match' %}" class='btn btn-info' role='button'>next</a>
+    </tr>
+</table>
+{% endblock %}

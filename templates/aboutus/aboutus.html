@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+<style>
+
+{#text {#}
+{#    height: 100%;#}
+{#  width: 100%;#}
+{#  display: flex;#}
+{#  position: fixed;#}
+{#  align-items: center;#}
+{#  justify-content: center;#}
+{#}#}
+    .subject {
+        text-align: center;
+    }
+
+</style>
+
+
+
+
+
+
+
+{% block content %}
+{##}
+
+<div class="logo">
+    <img src="/static/media/logo.png" class="d-block w-100" alt="..." height="700" width="700">
+
+</div>
+    <div class="margin">
+    <div class = "container">
+        <div class = "subject"><h2>DISCLAIMER:</h2>
+        <br>
+        <br>
+
+<h3>THIS WEBSITE IS FOR PROJECT PURPOSES ONLY!</h3>
+
+Color Me This is a Web Application that is made by four junior programmers for project purposes only. It is not a legit online shop and everything that is on this page are not sold. The products that are used are only samples to try our feature Color Recognition System feature where people can upload a picture and the application will find a matching shade of either foundation or lipstick from our database.
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<style>
+        .margin{
+        padding:30px;
+        }
+        body{
+          
+        font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+
+        }
+        
+</style>
+
+<!-- <div class='row'> -->
+<div class='col-sm-8'>
+<br/>
+        <div class='col-sm-8 float-left'>
+            <h1 class=>{{product.title}}</h1>
+             <h1 class=>{{product.category}}</h1>
+            <a href='{% url "update_favorite" product.slug %}' class='pull-right'>Add to Favorite</a>
+        
+        </div>
+        <div class='col-sm-4 float-right'>
+            <form class='form' method='POST' 
+                action='{% url "add_to_cart" product.slug %}'> {% csrf_token %}
+            <input class='form-control' name='qty' type='number' value='1'/>
+            <input class='btn btn-default btn-block float-right' style='background-color: #a15f5f; color: #D6C3C9;' type='submit' value='Add to Cart'/>
+
+            {% if product.variation_set.all %}
+
+            {% if product.variation_set.shades %}
+            <select class='form-control' name='shade'>
+            {% for item in product.variation_set.shades %}
+                <option value='{{item.title|lower}}'>{{item.title|capfirst}}</option>
+            {% endfor %}
+            </select>
+            {% endif %}
+
+              {% if product.variation_set.sizes %}
+            <select class='form-control' name='size'>
+            {% for item in product.variation_set.sizes %}
+                <option value='{{item.title|lower}}'>{{item.title|capfirst}}</option>
+            {% endfor %}
+            </select>
+            {% endif %}   
+
+                 {% endif %}       
+            </form>
+        <div class='col-sm-12'>
+            
+                Price: {{product.price}}<br/>
+                Shipping: Free with $25+ purchase
+            <hr/>
+        </div>
+        
+
+        <div class='col-sm-12'>
+            Direction
+            {{product.description|linebreaks}}
+        </div>
+        <div class='col-sm-12'>
+            {{product.how_to_use | linebreaks}}     
+            </div>
+          
+        <div class="container">
+            <div class="panel-group">
+        <div class="panel panel-danger">
+                    <div class="panel-heading">Direction</div>
+                    <div class="panel-body">{{product.how_to_use | linebreaks}}</div>
+                  </div>
+                </div>
+             </div>  
+
+</div>
+<div class='margin'>
+
+
+
+
+        {% comment %} {{ product.price}} {% endcomment %}
+        {% for img in images %}
+            {% if img.featured %}
+            {% comment %} <div class="col-xs-12 col-md-6"> {% endcomment %}
+                <h1>Featured</h1>
+                    <img class='img-responsive' src="{{ MEDIA_URL }}{{ img.image.url }}" alt="img"/>              
+            {% else %}
+            {% comment %} <div class="col-xs-6 col-md-3"> {% endcomment %}
+                <a href="#" class="thumbnail">
+            <img class='img-responsive' src="{{ MEDIA_URL }}{{ img.image.url }}" alt="img"/></a>
+            {% comment %} </div> {% endcomment %}
+            {% comment %} <p>Not Featured</p>
+            <img class='img-table-responsive' src="{{ MEDIA_URL }}{{ img.image }}"> {% endcomment %}
+            {% endif %}
+            {% comment %} {% if not img.featured %}
+                <img class='img-table-responsive' src="{{ MEDIA_URL }}{{ img.image }}">
+            {% endif %} {% endcomment %}
+        {% endfor %}
+    </div>
+
+
+{% comment %} <form method="POST">
+    {% csrf_token %}
+    <textarea id = "comment" name="comment" class="form-control" rows="3" placeholder="This product..."></textarea>
+    <input type="submit" value="Submit" class="btn btn-default btn-block float-right">
+</form> {% endcomment %}
+
+    <div class = "main-comment-section">
+    <p>Total Number of Comments: {{comment.count}}</p>
+    {% comment %} <a href='{{product.get_absolute_url}}'></a> {% endcomment %}
+     <h4><a href="{% url 'comment' slug=product.slug %}">Leave A Comment</a></h4>
+        {% for c in comment.all %}
+        <p class="mb-0">Date: {{c.timestamp}}</p>
+        <p>Username: {{user.username}}</p>
+         <p class="mb-0">Rating: {{c.ratings}} </p>
+        <p class="mb-0">Comment: {{ c.content }} </p>
+        <hr>
+        {% empty %}
+        <p class="mb-0">There is no comments</p>
+        {% endfor %}
+        {% comment %} {% for comment in Comment %}
+        <blockquote class="blockquote">
+                <p class="mb-0">{{ comment.content }} </p>
+                <footer class="blockquote-footer">by<cite title="Source Title">{{ comment.user|capfirst }}</cite></footer>
+              </blockquote> {% endcomment %}
+</div>
+
+{% endblock %} 
+

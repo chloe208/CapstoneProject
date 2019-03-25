@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+</style>
+{% if empty %}
+<h1 style='text-align:center;'>{{ empty_message }}</h1>
+{% else %}
+<div class='col-sm-8 col-sm-offset-2'>
+<table class="table">
+<thead>
+    <th>Item</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th></th>
+</thead>
+<tfoot>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>Total: {{cart.total|floatformat:2}}</td>
+        
+    </tr>
+</tfoot>
+
+    {%for item in cart.cartitem_set.all%}
+    <tr>
+        <td>{{item.product}} {% if item.variations.all %}<ul>
+        {% for subitem in item.variations.all %}<li>{{subitem.category|capfirst}}: 
+        {{subitem.title|capfirst}}{% endfor %}</li><ul> {% endif %}</td>
+        <td>{{item.product.price}}</td>
+        <td>{{item.quantity}}</td>
+        {% comment %} unpack the dictionary {% endcomment %}
+        <td><a href='{% url "remove_from_cart" item.id %}' >Remove</a>
+    </tr>
+    {%endfor%}
+</table>
+<div class='col-sm-12'>
+<a class="float-left btn btn-warning" href='{% url "products"%}'>Continue Shopping</a>
+<a class="float-right btn btn-info" href='{% url "checkout"%}'>Checkout</a>
+</div>
+</div>
+{% endif %}
+{% endblock %}
+
+

@@ -1,0 +1,70 @@
+{# THIS IS WHERE THE HEADER FOOTER IS #}
+{% extends "base.html" %}
+{% load staticfiles %}
+<style>
+    .margin{
+    padding:30px;
+    }
+  
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+{# THIS IS FOR THE HEAD TITLE #}
+{% block head_title %}
+    PRODUCTS ||
+{% endblock %}
+
+{# FOR BOOTSTRAP BUT IS NOW WORKING #}
+{% comment %}
+{%block jquery %}{% endblock %} 
+{% endcomment %}
+
+{# THIS IS THE CONTENT OF THE WEB PAGE #}
+{# DIANA'S CODE #}
+
+
+{% block jumbotron %}
+
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+                {% if product.productimage_set.all %}
+                    <div class="col-sm">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                {% for item in product.productimage_set.all %}
+                                <!-- {{item.image}} -->
+                                    {% if item.featured %}
+                                    <div class="container" style="width: 160px; height: 220px;">
+                                    <a href='{{product.get_absolute_url}}'>
+                                    <div style="width: 150px; 
+                                    height: 220px;
+                                    margin: 0 auto;
+                                    background-image: url('{{ MEDIA_URL }}{{ item.image.url }}');
+                                    background-repeat: no-repeat;
+                                    background-size: cover;
+                                    background-position: center;
+                                    object-fit: contain;                         
+                                     ">
+                                     </div>
+                                     </a>
+                                     </div>
+                                        {% comment %} <img class='img-responsive img-fluid' src="{{ MEDIA_URL }}{{ item.image.url }}" alt="img"/>      {% endcomment %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                    {% load staticfiles %}
+                                    <img class='image-responsive img-fluid rounded mx-auto d-block' src="{% static '/media/products/images/p.svg' %}" alt="placeholder"/>
+                                {% endif %}   
+                                <a href='{{product.get_absolute_url}}'><h6 style='color:#b49082;'>{{ product.title }}</h6></a>
+                                <p>{{product.description|truncatewords:6}}</p>
+                                <p><a href="{{product.get_absolute_url}}" class='btn btn-info' role='button'>View</a>
+                                <a href='{% url "update_favorite" product.slug %}' class='btn btn-danger' role='button'>Add to Favorite</a></p>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

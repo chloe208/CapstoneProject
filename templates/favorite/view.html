@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>HELLO WORLD</h1>
+<table>
+{% for item in favorite.products.all %}
+<tr>
+    <td>{{item}}</td>
+    <td>{{item.price }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %} py

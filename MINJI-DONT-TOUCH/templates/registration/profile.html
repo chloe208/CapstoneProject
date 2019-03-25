@@ -1,0 +1,12 @@
+{# THIS IS WHERE THE HEADER FOOTER IS #}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Profile</h1>
+    <p><strong>Username: </strong>{{ user.username }}</p>
+    <p>Firstname: {{ user.first_name }}</p>
+    <p>Lastname: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+</div>
+{% endblock content%}
