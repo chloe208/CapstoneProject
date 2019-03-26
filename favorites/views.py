@@ -57,15 +57,8 @@ def fav_to_cart(request, slug):
         for item in request.POST:
             key = item
             val = request.POST[key]
-            try:
-                v = Variation.objects.get(product=product, category__iexact=key, title__iexact=val)
-                product_var.append(v)
-            except:
-                pass
         cart_item = CartItem.objects.create(cart=cart, product=product)
         print(cart_item)
-        if len(product_var) > 0:
-            cart_item.variations.add(*product_var)
         cart_item.quantity = qty
     # saving notes in a dictionary
         cart_item.save()

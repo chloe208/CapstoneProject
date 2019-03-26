@@ -28,9 +28,11 @@ body{
 
     {%for item in cart.cartitem_set.all%}
     <tr>
-        <td>{{item.product}} {% if item.variations.all %}<ul>
+        <td>{{item.product}}
+         {% comment %} {% if item.variations.all %}<ul>
         {% for subitem in item.variations.all %}<li>{{subitem.category|capfirst}}: 
-        {{subitem.title|capfirst}}{% endfor %}</li><ul> {% endif %}</td>
+        {{subitem.title|capfirst}}{% endfor %}</li><ul> {% endif %} {% endcomment %}
+        </td>
         <td>{{item.product.price}}</td>
         <td>{{item.quantity}}</td>
         {% comment %} unpack the dictionary {% endcomment %}

@@ -1,13 +1,12 @@
 from django.db import models
 from django.contrib.auth.decorators import login_required
 
-from products.models import Product, Variation
+from products.models import Product
 
 class CartItem(models.Model):
     # cart foreign key
     cart = models.ForeignKey('Cart', on_delete=models.CASCADE, null=True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    variations = models.ManyToManyField(Variation, null=True, blank=True)
     quantity = models.IntegerField(default=1)  # product count 
     line_total = models.DecimalField(default=10.99, max_digits=1000, decimal_places=2)
     notes = models.TextField(null=True, blank=True)

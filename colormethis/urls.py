@@ -70,11 +70,20 @@ urlpatterns = [
     path('products/<slug:slug>/comment/', cmt.add_comment, name='comment'),
     # CHECKOUT TRIAL
     path('checkitout/', cart.checkout_home, name='checkitout'), 
+    # Sort by brand
+    path('mac/', cmt.mac, name='mac' ),
+    path('maybelline/', cmt.maybelline, name='maybelline' ),
+    path('bobbibrown/', cmt.bobbibrown, name='bobbibrown' ),
+
+    # Sort by makeup_type
+    path('lipstick/', cmt.lipstick, name='lipstick' ),
+    path('foundation/', cmt.foundation, name='foundation' ),
+
     # PAYPAL
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('process-payment/', cart.process_payment, name='process_payment'),
     path('thank-you/', cart.payment_done, name='payment_done'),
-    path('payment-cancelled/', cart.payment_canceled, name='payment_cancelled')
+    path('payment-canceled/', cart.payment_canceled, name='payment_canceled'),
 
 ]
 

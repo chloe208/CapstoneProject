@@ -96,33 +96,6 @@ class ProductImage(models.Model):
     def __str__(self):
         return self.name
 
-class VariationManager(models.Manager):
-
-    def all(self):
-        return super(VariationManager, self).filter(active=True)
-    def sizes(self):
-        return self.all().filter(category='size')
-    def shades(self):
-        return self.all().filter(category='shade')
-
-
-VAR_CATEGORIES=(
-    ('shade', 'shade'),
-    ('package', 'package'),
-    ('size', 'size') 
-)
-class Variation(models.Model):
-    product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    category = models.CharField(max_length=120, choices=VAR_CATEGORIES, default='shade')
-    title = models.CharField(max_length=120)
-    image = models.ForeignKey('ProductImage', on_delete=models.CASCADE, blank=True, null=True)
-    price  = models.DecimalField(max_digits=100, decimal_places=2, null=True, blank=True)
-    active = models.BooleanField(default=True)
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-    objects = VariationManager()
-
-    def __str__(self):
-        return self.title
     
 RATINGS = (
         ('⭐⭐⭐⭐⭐', '5'),
@@ -131,7 +104,6 @@ RATINGS = (
         ('⭐⭐', '2'),
         ('⭐', '1')
 )
-# minji
 class Comment(models.Model):
     product = models.ForeignKey('product', on_delete=models.CASCADE)
     ratings = models.CharField(max_length=120, default='★★★★★', choices=RATINGS)
@@ -145,11 +117,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.product)
-
-#This part is the problem
-
-# class CommentForm(forms.ModelForm):
-#     class Meta:
-#         model = Comment
-#         fileds = '__all__'
 

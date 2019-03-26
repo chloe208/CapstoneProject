@@ -7,8 +7,8 @@ from orders.models import Order
 from carts.models import Cart
 from billing.models import BillingProfile
 # to grab things from Product, Cart
-from products.models import Product, Variation
-from .models import Cart, CartItem
+from products.models import Product
+from .models import Cart, CartItem, Product
 # for login
 from django.contrib.auth.decorators import login_required
 # paypal
@@ -22,14 +22,13 @@ from django.views.decorators.csrf import csrf_exempt
 # PAYPAL
 def process_payment(request):
     order_id = request.session.get('order_id')
-    order = get_object_or_404(Order, id=order_id)
+    order = get_object_or_404(Order, order_id=order_id)
     host = request.get_host()
  
     paypal_dict = {
         'business': settings.PAYPAL_RECEIVER_EMAIL,
-        'amount': '%.2f' % order.update_total().quantize(
-            Decimal('.01')),
-        'item_name': 'Order {}'.format(order.id),
+        'amount': '%.2f' % order.update_total(),
+        'item_name': 'Order {}'.format(order_id),
         'invoice': str(order.id),
         'currency_code': 'CAD',
         'notify_url': 'http://{}{}'.format(host,
@@ -37,21 +36,21 @@ def process_payment(request):
         'return_url': 'http://{}{}'.format(host,
                                            reverse('payment_done')),
         'cancel_return': 'http://{}{}'.format(host,
-                                              reverse('payment_cancelled')),
+                                              reverse('payment_canceled')),
     }
  
     form = PayPalPaymentsForm(initial=paypal_dict)
-    return render(request, 'payment/process_payment.html', {'order': order, 'form': form})
+    return render(request, 'payments/process_payment.html', {'order': order, 'form': form})
 
 
 @csrf_exempt
 def payment_done(request):
-    return render(request, 'payment/payment_done.html')
+    return render(request, 'payments/payment_done.html')
  
  
 @csrf_exempt
 def payment_canceled(request):
-    return render(request, 'payment/payment_cancelled.html')
+    return render(request, 'payments/payment_cancelled.html')
 
 
 #require user login
@@ -78,7 +77,7 @@ def checkout(request):
  
     #run credit card
     if new_order.status == "Finished":
-        #cart.delete()
+        cart.delete()
         del request.session['cart_id']
         del request.session['items_total']
         return redirect(reverse("cart"))
@@ -168,15 +167,8 @@ def add_to_cart(request, slug):
         for item in request.POST:
             key = item
             val = request.POST[key]
-            try:
-                v = Variation.objects.get(product=product, category__iexact=key, title__iexact=val)
-                product_var.append(v)
-            except:
-                pass
         cart_item = CartItem.objects.create(cart=cart, product=product)
         print(cart_item)
-        if len(product_var) > 0:
-            cart_item.variations.add(*product_var)
         cart_item.quantity = qty
     # saving notes in a dictionary
         cart_item.save()

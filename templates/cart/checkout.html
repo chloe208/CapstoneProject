@@ -2,6 +2,7 @@
 
 
 {% block content %}
+
 <style>
 body{
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
@@ -17,12 +18,15 @@ body{
 <div class='col-sm-12'>
 <a class="float-left btn btn-warning" href='{% url "cart"%}'>Back to Cart</a>
 <a class="float-right btn btn-success" href='{% url "process_payment"%}'>Proceed to Checkout</a>
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+
+
+{% comment %} <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="QWKX65RJ2FUHY">
+<input type="hidden" name="hosted_button_id" value="4F2VZ68HHN8KC">
 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
+ {% endcomment %}
 
 <!--
 <script src="https://www.paypal.com/sdk/js?client-id=sb"></script>

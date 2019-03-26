@@ -39,10 +39,28 @@ body {
         <a class="nav-link" href="/upload">Find My Shade</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'products' %}">Products</a>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Products
+        </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/foundation">Foundation</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/lipstick">Lipstick</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'products' %}">All Products</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Brands</a>
+      <li class="nav-item dropdown">
+       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Brands
+        </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/maybelline">Maybelline</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/mac">Mac</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/bobbibrown">Bobbi Brown</a>
+        </div>
       </li>
    
       <li class="nav-item">

@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Product, ProductImage, Variation, Comment, Category
+from .models import Product, ProductImage, Comment, Category
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
@@ -38,4 +38,4 @@ admin.site.register(Product, ProductAdmin)
 
 admin.site.register(ProductImage)
 
-admin.site.register(Variation)
+

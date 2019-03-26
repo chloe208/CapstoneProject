@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import os, sys
 from functools import reduce, partial
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # upload photo, find my shade
 def upload(request):
@@ -130,7 +131,7 @@ def search(request):
     except:
         q = None
     if q:
-        products = Product.objects.filter(title__icontains=q)
+        products = Product.objects.filter(Q(name__icontains=q) | Q(brand__contains=q) | Q(makeup_type__icontains=q) | Q(title__icontains=q)) 
         context = {'query':q, 'products':products}
         template = 'products/results.html'
     else:
@@ -148,6 +149,36 @@ def showall(request):
     products = Product.objects.all()
     context = {'products': products}
     template = 'products/all.html'
+    return render(request, template, context)
+
+def lipstick(request):
+    products = Product.objects.all().filter(makeup_type__iexact='lipstick')
+    context = {'products': products}
+    template = 'products/lipstick.html'
+    return render(request, template, context)
+
+def foundation(request):
+    products = Product.objects.all().filter(makeup_type__iexact='foundation')
+    context = {'products': products}
+    template = 'products/foundation.html'
+    return render(request, template, context)
+
+def mac(request):
+    products = Product.objects.all().filter(brand__iexact='mac')
+    context = {'products': products}
+    template = 'products/mac.html'
+    return render(request, template, context)
+
+def maybelline(request):
+    products = Product.objects.all().filter(brand__iexact='maybelline')
+    context = {'products': products}
+    template = 'products/maybelline.html'
+    return render(request, template, context)
+
+def bobbibrown(request):
+    products = Product.objects.all().filter(brand__iexact='bobbi brown')
+    context = {'products': products}
+    template = 'products/bobbibrown.html'
     return render(request, template, context)
 
 

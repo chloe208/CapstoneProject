@@ -26,8 +26,7 @@ SECRET_KEY = 'k@k&8&e(hj+jujal7lm&rtd3*_=s%a1af^(dub#e1=#%0i9*us'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-STRIPE_PUBLISHABLE_KEY = 'pk_test_f49AGojiuQ2Xxn5oumn6qYHo'
-STRIPE_SECRET_KEY = 'sk_test_fFbDfCHuqjikmcIDDzujlyFD'
+
 
 # Application definition
 
@@ -46,7 +45,6 @@ INSTALLED_APPS = [
     'favorites',
     # register
     'users.apps.UsersConfig',
-    'stripe',
     'billing',
     # paypal
     'paypal.standard.ipn',    

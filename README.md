@@ -11,16 +11,18 @@ http://colormethis.pythonanywhere.com/
 
 coding is fun :c
 
-Install django:
-pip install django
+To start
 
-Install bootstrap3:
+pip install -r requirements.txt
+
+python manage.py migrate
+
+python manage.py runserver
+
+(this installs everything needed all at once)
 
 Install crispy forms:
 pip install django-crispy-forms
-
-Install stripe:
-pip install stripe
 
 Install pillow:
 pip install Pillow
@@ -36,7 +38,3 @@ pip install django-paypal
 
 fix for crispy error after crispy install:
 pip install --upgrade django-crispy-forms
-
-fix for no module stripe error:
-pipenv install stripe
-

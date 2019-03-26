@@ -29,29 +29,9 @@
         </div>
         <div class='col-sm-4 float-right'>
             <form class='form' method='POST' 
-                action='{% url "add_to_cart" product.slug %}'> {% csrf_token %}
+                action="{% url 'add_to_cart' product.slug %}"> {% csrf_token %}
             <input class='form-control' name='qty' type='number' value='1'/>
-            <input class='btn btn-default btn-block float-right' style='background-color: #a15f5f; color: #D6C3C9;' type='submit' value='Add to Cart'/>
-
-            {% if product.variation_set.all %}
-
-            {% if product.variation_set.shades %}
-            <select class='form-control' name='shade'>
-            {% for item in product.variation_set.shades %}
-                <option value='{{item.title|lower}}'>{{item.title|capfirst}}</option>
-            {% endfor %}
-            </select>
-            {% endif %}
-
-              {% if product.variation_set.sizes %}
-            <select class='form-control' name='size'>
-            {% for item in product.variation_set.sizes %}
-                <option value='{{item.title|lower}}'>{{item.title|capfirst}}</option>
-            {% endfor %}
-            </select>
-            {% endif %}   
-
-                 {% endif %}       
+            <button class='btn btn-default btn-block float-right' style='background-color: #a15f5f; color: #D6C3C9;' type="submit">Add to Cart</button>
             </form>
         <div class='col-sm-12'>
             
